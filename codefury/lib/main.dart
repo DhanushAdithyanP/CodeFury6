@@ -1,4 +1,5 @@
 import 'package:codefury/activities.dart';
+import 'package:codefury/contacts.dart';
 import 'package:codefury/image_post_screen.dart';
 import 'package:codefury/journal/screens/Journal_screen.dart';
 import 'package:codefury/load_page.dart';
@@ -64,7 +65,23 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Lottie.network(
                 'https://lottie.host/dd5fa0ca-e495-4d54-8302-82f9020710d3/K7NVIx2rWm.json'),
           ),
-          
+          Align(
+  alignment: Alignment.center,
+  child: Container(
+    padding: EdgeInsets.all(16.0), // Adjust the padding as needed // Set the background color to black
+    child: Text(
+      'SAHARA',
+      style: TextStyle(
+        fontSize: 20.0, // Adjust the font size as needed
+        fontWeight: FontWeight.bold, // Adjust the font weight as needed
+        fontStyle: FontStyle.italic, // Set the text style to italic
+        color: Colors.white, // Set the text color to white
+      ),
+    ),
+  ),
+),
+
+
           // Content
           ListView.builder(
             itemCount: imagePaths.length,
@@ -85,7 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
 
-          if (index == 0) {}
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ContactList(),
+              ),
+            );
+          }
 
           if (index == 1) {
             Navigator.push(
@@ -121,8 +145,8 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: Colors.white,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.call),
+            label: 'Hotlines',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
