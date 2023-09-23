@@ -1,5 +1,9 @@
+import 'package:codefury/activities.dart';
 import 'package:codefury/image_post_screen.dart';
+import 'package:codefury/journal/screens/Journal_screen.dart';
+import 'package:codefury/load_page.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,10 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        home: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: 'quotescreen',
+      routes: {
+        'quotescreen': (context) => QuoteScreen(),
+        'homescreen': (context) => HomeScreen(),
+      },
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData.dark(),
-      home: HomeScreen(),
-    );
+    ));
   }
 }
 
@@ -22,33 +32,50 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0; // To keep track of the current tab index
+  int _currentIndex = 0;
 
   final List<String> imagePaths = [
     'assets/images/image_1.jpeg',
     'assets/images/image_2.jpeg',
-    'assets/images/image_3.png',
+    'assets/images/image_3.jpeg',
     'assets/images/image_4.png'
   ];
 
   final List<String> usernames = [
-    'User1',
-    'User2',
-    'User3',
-    'User4',
+    'HealthLine',
+    'WHO',
+    'Tikinagan',
+    'Roots & Water',
+  ];
+
+  final List<String> profilepath = [
+    'assets/images/h.png',
+    'assets/images/who.png',
+    'assets/images/cyber.jpeg',
+    'assets/images/7cups.jpeg'
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: imagePaths.length,
-        itemBuilder: (context, index) {
-          return ImagePost(
-            imagePath: imagePaths[index],
-            username: 'WHO',
-          );
-        },
+      body: Stack(
+        children: [
+          Center(
+            child: Lottie.network(
+                'https://lottie.host/dd5fa0ca-e495-4d54-8302-82f9020710d3/K7NVIx2rWm.json'),
+          ),
+          
+          // Content
+          ListView.builder(
+            itemCount: imagePaths.length,
+            itemBuilder: (context, index) {
+              return ImagePost(
+                imagePath: imagePaths[index],
+                username: usernames[index],
+              );
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -58,7 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
 
-          // Check if the Search button was pressed (index 1), and navigate to ImagePostScreen if so
+          if (index == 0) {}
+
           if (index == 1) {
             Navigator.push(
               context,
@@ -66,15 +94,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context) => ImagePostScreen(
                   imagePaths: imagePaths,
                   usernames: usernames,
+                  profilepath: profilepath,
                 ),
               ),
             );
           }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => JournalScreen(),
+              ),
+            );
+          }
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Activities(),
+              ),
+            );
+          }
         },
-        backgroundColor: Colors.grey[900], // Dark background color
-        selectedItemColor: Colors.blue, // Color for the selected item icon and text
-        unselectedItemColor: Colors.white, // Color for unselected item icons and text
-        items: [
+        backgroundColor: Colors.grey[900],
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.white,
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',

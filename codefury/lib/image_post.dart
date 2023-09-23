@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 class ImagePost extends StatefulWidget {
   final String imagePath;
   final String username;
+  final String profilePicturePath; // Add this parameter
 
-  ImagePost({required this.imagePath, required this.username});
+  ImagePost({
+    required this.imagePath,
+    required this.username,
+    required this.profilePicturePath, // Initialize the parameter
+  });
 
   @override
   _ImagePostState createState() => _ImagePostState();
@@ -67,8 +72,8 @@ class _ImagePostState extends State<ImagePost> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            leading: const CircleAvatar(
-              backgroundImage: AssetImage('assets/images/image_1.jpeg'),
+            leading: CircleAvatar(
+              backgroundImage: AssetImage(widget.profilePicturePath), // Use the user-specific profile picture
             ),
             title: Text(
               widget.username,

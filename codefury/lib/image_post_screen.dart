@@ -4,21 +4,20 @@ import 'package:flutter/material.dart';
 class ImagePostScreen extends StatelessWidget {
   final List<String> imagePaths;
   final List<String> usernames;
+  final List<String> profilepath;
 
-  ImagePostScreen({required this.imagePaths, required this.usernames});
+  ImagePostScreen({required this.imagePaths, required this.usernames, required this.profilepath});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Image Posts'),
-      ),
       body: ListView.builder(
         itemCount: imagePaths.length,
         itemBuilder: (context, index) {
           return ImagePost(
             imagePath: imagePaths[index],
             username: usernames[index],
+            profilePicturePath: profilepath[index],
           );
         },
       ),
